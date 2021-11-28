@@ -1,8 +1,8 @@
-import Header from "./Components/Header/Header";
-import Note from "./Components/Note/Note";
-import Footer from "./Components/Footer/Footer";
+import Header from "../../Components/Header/Header";
+import Note from "../../Components/Note/Note";
+import Footer from "../../Components/Footer/Footer";
 
-export default function App() {
+export default function Download() {
   return (
     <div
       style={{
