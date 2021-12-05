@@ -2,26 +2,48 @@
 import Error from "../Error/Error";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import Dropdown from "../../Components/Dropdown/Dropdown";
+import Notification from "../../Components/Notification/Notification";
+import Panel from "../../Components/Panel/Panel";
 
 // Package imports
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function PageLayout(props) {
-  const { layoutData, children } = props;
+  const { layoutData, pageData } = props;
 
   return layoutData ? (
     layoutData.hasOwnProperty("header") &&
     layoutData.hasOwnProperty("background") &&
     layoutData.hasOwnProperty("footer") ? (
-      <div
-        style={{
-          backgroundImage: `url(${layoutData.background.backgroundImagePath})`,
-        }}
-        className="w-screen h-screen bg-cover"
-      >
+      <div className="w-screen h-screen">
+        <img
+          className="w-full h-full pointer-events-none object-cover absolute z-0"
+          src={layoutData.background.backgroundImagePath}
+        />
         <Header headerData={layoutData.header} />
-        {children}
+        <div className="h-2/5 md:h-3/5 w-full overflow-y-auto mt-4">
+          {pageData.map((component, i) => {
+            switch (component.component) {
+              case "notification":
+                return (
+                  <Notification
+                    key={"notification_" + i}
+                    notificationData={component.notification}
+                  />
+                );
+              case "dropdown":
+                return (
+                  <Dropdown key={"dropdown_" + i} dropdownData={component} />
+                );
+              case "panel":
+                return <Panel key={"panel_" + i} panelData={component} />;
+              default:
+                return <></>;
+            }
+          })}
+        </div>
         <Footer footerData={layoutData.footer} />
       </div>
     ) : (

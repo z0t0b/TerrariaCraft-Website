@@ -1,8 +1,6 @@
 // Custom page/component imports
-import About from "./Pages/About/About";
-import Download from "./Pages/Download/Download";
 import Error from "./Components/Error/Error";
-import Home from "./Pages/Home/Home";
+import PageLayout from "./Components/PageLayout/PageLayout";
 
 // Package imports
 import axios from "axios";
@@ -33,46 +31,39 @@ const fetchData = new Promise((resolve, reject) => {
       headers: { "Content-Type": "application/json" },
     })
     .then((layoutResponse) => {
-      if (layoutResponse.data)
-        axios
-          .get("https://terrariacraft.com/dynamic/json/layout/main", {
-            headers: { "Content-Type": "application/json" },
-          })
-          .then((mainPageLayoutResponse) => {
-            if (mainPageLayoutResponse.data)
-              axios
-                .get("https://terrariacraft.com/dynamic/json/layout/about", {
-                  headers: { "Content-Type": "application/json" },
-                })
-                .then((aboutPageLayoutResponse) => {
-                  if (aboutPageLayoutResponse.data)
-                    axios
-                      .get(
-                        "https://terrariacraft.com/dynamic/json/layout/download",
-                        {
-                          headers: { "Content-Type": "application/json" },
-                        }
-                      )
-                      .then((downloadPageLayoutResponse) => {
-                        if (downloadPageLayoutResponse.data)
-                          resolve({
-                            layoutData: layoutResponse.data,
-                            mainPageData: mainPageLayoutResponse.data,
-                            aboutPageData: aboutPageLayoutResponse.data,
-                            downloadPageData: downloadPageLayoutResponse.data,
-                          });
-                        else reject();
-                      })
-                      .catch(() => reject());
-                  else reject();
-                })
-                .catch(() => reject());
-            else reject();
-          })
-          .catch(() => reject());
-      else reject();
+      if (layoutResponse.data) {
+        const layoutArray = [];
+        layoutResponse.data?.header?.tabs
+          .filter((tab) => tab.layout)
+          .map((tab, i) =>
+            axios
+              .get(tab.layout, {
+                headers: { "Content-Type": "application/json" },
+              })
+              .then((response) => {
+                if (response.data) {
+                  layoutArray.push({
+                    link: tab.link,
+                    layout: response.data,
+                  });
+                  if (
+                    i ===
+                    layoutResponse.data.header.tabs.filter((tab) => tab.layout)
+                      .length -
+                      1
+                  ) {
+                    resolve({
+                      layoutData: layoutResponse.data,
+                      layoutArray: layoutArray,
+                    });
+                  }
+                }
+              })
+              .catch((err) => console.error(err) && reject())
+          );
+      }
     })
-    .catch(() => reject());
+    .catch((err) => console.error(err) && reject());
 });
 
 fetchData
@@ -81,34 +72,19 @@ fetchData
     ReactDOM.render(
       <Router>
         <Switch>
-          <Route
-            exact
-            path="/"
-            element={
-              <Home
-                mainPageData={data.mainPageData}
-                layoutData={data.layoutData}
-              />
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <About
-                aboutPageData={data.aboutPageData}
-                layoutData={data.layoutData}
-              />
-            }
-          />
-          <Route
-            path="/download"
-            element={
-              <Download
-                downloadPageData={data.downloadPageData}
-                layoutData={data.layoutData}
-              />
-            }
-          />
+          {data.layoutArray.map((layout, i) => (
+            <Route
+              key={layout.link + "_" + i}
+              exact={layout.link === "/"}
+              path={layout.link}
+              element={
+                <PageLayout
+                  pageData={layout.layout}
+                  layoutData={data.layoutData}
+                />
+              }
+            />
+          ))}
         </Switch>
       </Router>,
       document.getElementById("root")

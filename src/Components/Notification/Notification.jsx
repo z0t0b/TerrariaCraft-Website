@@ -9,10 +9,10 @@ export default function Notification(props) {
   const [clicked, setClicked] = useState(false);
 
   return (
-    <div className="mx-auto w-full my-2">
+    <div className="mx-auto w-full my-2 z-10 relative">
       <div className="flex justify-center">
         <button
-          className="rounded-md flex justify-center align-middle items-center bg-black bg-opacity-60 text-white w-48 px-48 lg:w-96 lg:px-96 py-1"
+          className="flex justify-center align-middle items-center bg-black bg-opacity-70 text-white w-11/12 px-8 lg:w-2/3 py-1"
           onClick={() => setClicked(!clicked)}
         >
           <p className="mx-2 whitespace-nowrap">{notificationData.text}</p>
@@ -20,16 +20,20 @@ export default function Notification(props) {
         </button>
       </div>
       {clicked && (
-        <div className="flex justify-center mt-2">
-          <div className="relative bg-black bg-opacity-60 text-white w-48 px-48 lg:w-96 lg:px-96 py-1">
+        <div className="flex justify-center">
+          <div className="relative bg-black bg-opacity-60 text-white w-11/12 px-8 lg:w-2/3 py-1 flex justify-between items-center">
             {notificationData.image && (
               <img
                 src={notificationData.image}
                 alt={notificationData.imageAltText}
-                className="h-16 w-16 absolute left-4 md:left-12 top-4 md:top-2"
+                className="h-16 w-16"
               />
             )}
-            <div className="flex flex-col text-right my-2 w-48 lg:w-96 pr-4">
+            <div
+              className={`flex flex-col ${
+                notificationData ? "text-right" : "text-center"
+              } my-2 w-full`}
+            >
               <p className="mx-2 whitespace-normal md:whitespace-nowrap text-2xl">
                 {notificationData.title}
               </p>

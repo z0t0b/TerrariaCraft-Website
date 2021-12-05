@@ -13,10 +13,10 @@ export default function Dropdown(props) {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col justify-center align-middle items-center my-2">
+    <div className="flex flex-col justify-center align-middle items-center my-2 relative z-10">
       <button
         onClick={() => setOpen(!open)}
-        className="outline-none flex justify-between items-center bg-black bg-opacity-70 text-white w-48 px-4 lg:w-2/3 py-2"
+        className="outline-none flex justify-between items-center bg-black bg-opacity-70 text-white w-11/12 px-4 lg:w-2/3 py-2"
       >
         <p className="whitespace-nowrap">{dropdownData.initialText}</p>
         {open ? (
@@ -26,7 +26,7 @@ export default function Dropdown(props) {
         )}
       </button>
       {open && (
-        <div className="w-full flex justify-center align-middle items-center">
+        <div className="w-full flex flex-col justify-center align-middle items-center">
           {dropdownData.rows.map((row, i) => {
             try {
               let rowButton = <></>;
@@ -94,9 +94,11 @@ export default function Dropdown(props) {
               return (
                 <div
                   key={buttonDetails.text + "_" + i}
-                  className="flex justify-between items-center bg-black bg-opacity-60 text-white w-48 px-8 lg:w-2/3 py-4"
+                  className="flex flex-col md:flex-row justify-between items-center bg-black bg-opacity-60 text-white w-11/12 px-8 lg:w-2/3 py-4"
                 >
-                  <p className="whitespace-nowrap">{row.displayName}</p>
+                  <p className="whitespace-normal md:whitespace-nowrap text-center md:text-left my-2 md:my-0">
+                    {row.displayName}
+                  </p>
                   {rowButton}
                 </div>
               );

@@ -6,7 +6,7 @@ export default function Header(props) {
   const location = useLocation();
 
   return (
-    <header className="w-full bg-black bg-opacity-60">
+    <header className="w-full bg-black bg-opacity-60 relative z-10">
       <div className="w-full flex justify-center mb-2">
         <Link to="/">
           <img
@@ -21,7 +21,7 @@ export default function Header(props) {
         style={{
           fontFamily: "'Roboto Condensed', sans-serif",
         }}
-        className="flex flex-col md:flex-row justify-center m-auto text-center px-4 pt-2 text-2xl text-white"
+        className="flex flex-col md:flex-row justify-center m-auto text-center px-4 pt-2 text-2xl text-white h-64 md:h-full overflow-y-auto"
       >
         {headerData.tabs.map((tab) => {
           let pageName = "main";
