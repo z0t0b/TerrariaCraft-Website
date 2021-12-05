@@ -9,10 +9,10 @@ export default function Notification(props) {
   const [clicked, setClicked] = useState(false);
 
   return (
-    <div className="mx-auto w-full mt-4">
+    <div className="mx-auto w-full my-2">
       <div className="flex justify-center">
         <button
-          className="flex justify-center align-middle items-center bg-black bg-opacity-60 text-white w-48 px-48 lg:w-96 lg:px-96 py-1"
+          className="rounded-md flex justify-center align-middle items-center bg-black bg-opacity-60 text-white w-48 px-48 lg:w-96 lg:px-96 py-1"
           onClick={() => setClicked(!clicked)}
         >
           <p className="mx-2 whitespace-nowrap">{notificationData.text}</p>
