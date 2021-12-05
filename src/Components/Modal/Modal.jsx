@@ -18,7 +18,7 @@ export default function Modal(props) {
   if (leftButtonConfig?.onClick?.data?.linkType === "external")
     leftButton = (
       <a
-        target="_blank"
+        target={leftButtonConfig.onClick.data.sameTab ? "_self" : "_blank"}
         rel="noreferrer"
         href={leftButtonConfig.onClick.data.link}
       >
@@ -48,7 +48,7 @@ export default function Modal(props) {
   if (rightButtonConfig?.onClick?.data?.linkType === "external")
     rightButton = (
       <a
-        target="_blank"
+        target={rightButtonConfig.onClick.data.sameTab ? "_self" : "_blank"}
         rel="noreferrer"
         href={rightButtonConfig.onClick.data.link}
       >

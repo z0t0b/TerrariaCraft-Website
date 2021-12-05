@@ -33,7 +33,7 @@ export default function Notification(props) {
               <p className="mx-2 whitespace-normal md:whitespace-nowrap text-2xl">
                 {notificationData.title}
               </p>
-              {notificationData.subtitle.linkType === "internal" ? (
+              {notificationData.subtitle.linkType === "external" ? (
                 <a
                   href={notificationData.subtitle.link}
                   className="mx-2 whitespace-normal md:whitespace-nowrap underline text-blue-500 hover:text-blue-600"
