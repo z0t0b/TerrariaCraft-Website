@@ -22,29 +22,31 @@ export default function PageLayout(props) {
           className="w-full h-full pointer-events-none object-cover absolute z-0"
           src={layoutData.background.backgroundImagePath}
         />
-        <Header headerData={layoutData.header} />
-        <div className="h-2/5 md:h-3/5 w-full overflow-y-auto mt-4">
-          {pageData.map((component, i) => {
-            switch (component.component) {
-              case "notification":
-                return (
-                  <Notification
-                    key={"notification_" + i}
-                    notificationData={component.notification}
-                  />
-                );
-              case "dropdown":
-                return (
-                  <Dropdown key={"dropdown_" + i} dropdownData={component} />
-                );
-              case "panel":
-                return <Panel key={"panel_" + i} panelData={component} />;
-              default:
-                return <></>;
-            }
-          })}
+        <div className="w-full h-full">
+          <Header headerData={layoutData.header} />
+          <div className="relative h-1/2 md:h-2/3 py-2 w-full overflow-y-auto">
+            {pageData.map((component, i) => {
+              switch (component.component) {
+                case "notification":
+                  return (
+                    <Notification
+                      key={"notification_" + i}
+                      notificationData={component.notification}
+                    />
+                  );
+                case "dropdown":
+                  return (
+                    <Dropdown key={"dropdown_" + i} dropdownData={component} />
+                  );
+                case "panel":
+                  return <Panel key={"panel_" + i} panelData={component} />;
+                default:
+                  return <></>;
+              }
+            })}
+          </div>
+          <Footer footerData={layoutData.footer} />
         </div>
-        <Footer footerData={layoutData.footer} />
       </div>
     ) : (
       <Error />

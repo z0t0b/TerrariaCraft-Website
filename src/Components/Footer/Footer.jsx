@@ -10,11 +10,11 @@ export default function Footer(props) {
         backgroundColor: "#3a3a3ade",
         borderTopColor: "rgba(255,255,255,0.418)",
       }}
-      className="fixed bottom-0 z-10 py-8 w-full border-t-4 border-dotted"
+      className="relative z-10 py-4 w-full h-1/6 border-t-4 border-dotted flex justify-center align-middle"
     >
       <div
         style={{ fontFamily: "'Roboto Condensed', sans-serif" }}
-        className="text-md lg:text-xl text-white text-center flex justify-center items-center"
+        className="text-lg lg:text-2xl text-white text-center flex justify-center items-center"
       >
         {footerData.includeCopyright && (
           <p className="mr-1">
