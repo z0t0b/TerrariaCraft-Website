@@ -1,6 +1,9 @@
+// Package imports
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+export default function Footer(props) {
+  const { footerData } = props;
+
   return (
     <footer
       style={{
@@ -11,12 +14,30 @@ export default function Footer() {
     >
       <div
         style={{ fontFamily: "'Roboto Condensed', sans-serif" }}
-        className="text-xl text-white text-center"
+        className="text-md lg:text-xl text-white text-center flex justify-center items-center"
       >
-        Copyright &copy; {new Date().getFullYear()} - ARR -{" "}
-        <Link to="/" className="text-blue-500 underline">
-          DragonForge
-        </Link>
+        {footerData.includeCopyright && (
+          <p className="mr-1">
+            Copyright <span dangerouslySetInnerHTML={{ __html: "&copy;" }} />{" "}
+            {new Date().getFullYear()} -
+          </p>
+        )}
+        ARR -
+        {footerData.linkType === "internal" ? (
+          <Link
+            to="/"
+            className="text-blue-500 hover:text-blue-600 underline ml-1"
+          >
+            {footerData.linkText}
+          </Link>
+        ) : (
+          <a
+            href={footerData.linkLocation}
+            className="text-blue-500 hover:text-blue-600 underline ml-1"
+          >
+            {footerData.linkText}
+          </a>
+        )}
       </div>
     </footer>
   );

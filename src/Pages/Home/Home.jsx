@@ -4,12 +4,12 @@ import Notification from "../../Components/Notification/Notification";
 import PageLayout from "../../Components/PageLayout/PageLayout";
 import Panel from "../../Components/Panel/Panel";
 
-export default function Download(props) {
-  const { layoutData, downloadPageData } = props;
+export default function Home(props) {
+  const { layoutData, mainPageData } = props;
 
   return (
     <PageLayout layoutData={layoutData}>
-      {downloadPageData.map((component, i) => {
+      {mainPageData.map((component, i) => {
         switch (component.component) {
           case "notification":
             return (
