@@ -22,9 +22,9 @@ export default function PageLayout(props) {
           className="w-full h-full pointer-events-none object-cover absolute z-0"
           src={layoutData.background.backgroundImagePath}
         />
-        <div className="w-full h-full">
+        <div className="w-full h-full flex flex-col justify-between">
           <Header headerData={layoutData.header} />
-          <div className="relative h-1/2 md:h-2/3 py-2 w-full overflow-y-auto">
+          <div className="relative py-2 h-full w-full my-2 overflow-y-auto">
             {pageData.map((component, i) => {
               switch (component.component) {
                 case "notification":
