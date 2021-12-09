@@ -47,10 +47,9 @@ const fetchData = new Promise((resolve, reject) => {
                     layout: response.data,
                   });
                   if (
-                    i ===
+                    layoutArray.length ===
                     layoutResponse.data.header.tabs.filter((tab) => tab.layout)
-                      .length -
-                      1
+                      .length
                   ) {
                     resolve({
                       layoutData: layoutResponse.data,

@@ -21,20 +21,16 @@ export default function Header(props) {
         style={{
           fontFamily: "'Roboto Condensed', sans-serif",
         }}
-        className="w-full flex flex-col md:flex-row justify-start md:justify-center mx-auto text-center px-4 text-2xl text-white overflow-y-auto md:overflow-y-hidden"
+        className="w-full flex flex-col md:flex-row justify-start md:justify-center items-center mx-auto text-center px-4 text-2xl text-white overflow-y-auto md:overflow-y-hidden"
       >
         {headerData.tabs.map((tab) => {
-          let pageName = "main";
-          if (location.pathname.includes("about")) pageName = "about";
-          if (location.pathname.includes("download")) pageName = "download";
-
           if (tab.linkType === "internal")
             return (
               <Link
                 key={tab.title}
                 to={tab.link}
                 className={`flex items-center mx-1 px-4 py-2 transition-all duration-300 border-white border-b-2 border-opacity-0 hover:border-opacity-100 ${
-                  pageName === tab.title.toLowerCase()
+                  location.pathname === tab.link
                     ? "border-solid border-opacity-100 bg-black bg-opacity-40 hover:bg-opacity-50"
                     : "border-dashed hover:bg-black hover:bg-opacity-20"
                 }`}

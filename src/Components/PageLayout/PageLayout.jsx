@@ -20,11 +20,12 @@ export default function PageLayout(props) {
       <div className="w-screen h-screen">
         <img
           className="w-full h-full pointer-events-none object-cover absolute z-0"
+          alt="Background of Terraria"
           src={layoutData.background.backgroundImagePath}
         />
         <div className="w-full h-full flex flex-col justify-between">
           <Header headerData={layoutData.header} />
-          <div className="relative py-2 h-full w-full my-2 overflow-y-auto">
+          <div className="relative pt-2 h-full w-full mt-2 overflow-y-auto">
             {pageData.map((component, i) => {
               switch (component.component) {
                 case "notification":
@@ -44,8 +45,8 @@ export default function PageLayout(props) {
                   return <></>;
               }
             })}
+            <Footer footerData={layoutData.footer} />
           </div>
-          <Footer footerData={layoutData.footer} />
         </div>
       </div>
     ) : (
