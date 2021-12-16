@@ -9,8 +9,17 @@ import { Link } from "react-router-dom";
 
 export default function Dropdown(props) {
   const { dropdownData } = props;
+  const modalList = {};
+  dropdownData.rows
+    .filter((row) => row.displayButton.onClick.action === "Modal")
+    .map((row) => (modalList[row.displayButton.onClick.data.key] = false));
   const [open, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(modalList);
+
+  const changeModalState = (key, value) => {
+    const objCopy = modalOpen;
+    setModalOpen({ ...objCopy, [key]: value });
+  };
 
   return (
     <div className="flex flex-col justify-center align-middle items-center my-2 relative z-10">
@@ -69,7 +78,13 @@ export default function Dropdown(props) {
                   rowButton = (
                     <div>
                       <button
-                        onClick={() => setModalOpen(true)}
+                        onClick={() => {
+                          const objCopy = modalOpen;
+                          setModalOpen({
+                            ...objCopy,
+                            [modalDetails.key]: true,
+                          });
+                        }}
                         className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 border-2 border-blue-600 hover:border-blue-700"
                       >
                         <p className="text-white hover:text-gray-100">
@@ -77,8 +92,9 @@ export default function Dropdown(props) {
                         </p>
                       </button>
                       <Modal
-                        open={modalOpen}
-                        openHandler={setModalOpen}
+                        open={modalOpen[modalDetails.key]}
+                        openHandler={changeModalState}
+                        modalKey={modalDetails.key}
                         title={modalDetails.title}
                         text={modalDetails.text}
                         leftButtonConfig={modalDetails.leftButton}

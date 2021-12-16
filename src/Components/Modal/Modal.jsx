@@ -8,6 +8,7 @@ export default function Modal(props) {
   const {
     open,
     openHandler,
+    modalKey,
     title,
     text,
     leftButtonConfig,
@@ -25,7 +26,7 @@ export default function Modal(props) {
         <button
           type="button"
           className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
-          onClick={() => openHandler(false)}
+          onClick={() => openHandler(modalKey, false)}
         >
           {leftButtonConfig.text}
         </button>
@@ -37,7 +38,7 @@ export default function Modal(props) {
         <button
           type="button"
           className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
-          onClick={() => openHandler(false)}
+          onClick={() => openHandler(modalKey, false)}
         >
           {leftButtonConfig.text}
         </button>
@@ -55,7 +56,7 @@ export default function Modal(props) {
         <button
           type="button"
           className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
-          onClick={() => openHandler(false)}
+          onClick={() => openHandler(modalKey, false)}
         >
           {rightButtonConfig.text}
         </button>
@@ -67,7 +68,7 @@ export default function Modal(props) {
         <button
           type="button"
           className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
-          onClick={() => openHandler(false)}
+          onClick={() => openHandler(modalKey, false)}
         >
           {rightButtonConfig.text}
         </button>
@@ -79,7 +80,7 @@ export default function Modal(props) {
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={() => openHandler(false)}
+        onClose={() => openHandler(modalKey, false)}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
