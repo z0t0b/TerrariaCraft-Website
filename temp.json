@@ -1,0 +1,52 @@
+{
+    "displayName": "Modpack for Terraria Craft v12.4.26",
+    "displayButton": {
+        "text": "Download v12.4.26",
+        "onClick": {
+            "action": "CheckboxModal",
+            "data": {
+                "title": "Download v12.4.26",
+                "text": "Please select what you want included in the modpack!",
+                "checkboxes": [
+                    {
+                        "defaultValue": false,
+                        "text": "Sample 1",
+                        "URLPiece": "&sample1=true"
+                    },
+                    {
+                        "defaultValue": true,
+                        "text": "Sample 2",
+                        "URLPiece": "&sample2=true"
+                    },
+                    {
+                        "defaultValue": false,
+                        "text": "Sample 3",
+                        "URLPiece": "&sample3=true"
+                    }
+                ],
+                "key": "modpack-12.4.26",
+                "leftButton": {
+                    "text": "Download from Browser",
+                    "onClick": {
+                        "action": "link",
+                        "data": {
+                            "link": "https://www.example.com/modpack",
+                            "linkType": "externalAndCreated"
+                        }
+                    }
+                },
+                "rightButton": {
+                    "text": "Download CurseForge app",
+                    "onClick": {
+                        "action": "link",
+                        "data": {
+                            "link": "http://download.curseforge.com/",
+                            "linkType": "external",
+                            "sameTab": false
+                        }
+                    }
+                }
+            }
+        }
+    }
+},

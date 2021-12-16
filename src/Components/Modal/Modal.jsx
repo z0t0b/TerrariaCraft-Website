@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +9,20 @@ export default function Modal(props) {
     open,
     openHandler,
     modalKey,
+    checkboxes,
+    checkboxData,
     title,
     text,
     leftButtonConfig,
     rightButtonConfig,
   } = props;
+
+  const checkboxList = {};
+  checkboxes &&
+    checkboxData.map(
+      (checkbox) => (checkboxList[checkbox.key] = checkbox.defaultValue)
+    );
+  const [checkboxState, setCheckboxState] = useState(checkboxList);
 
   let leftButton = <></>;
   if (leftButtonConfig?.onClick?.data?.linkType === "external")
@@ -25,7 +34,7 @@ export default function Modal(props) {
       >
         <button
           type="button"
-          className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
           onClick={() => openHandler(modalKey, false)}
         >
           {leftButtonConfig.text}
@@ -37,13 +46,37 @@ export default function Modal(props) {
       <Link to={leftButtonConfig.onClick.data.link}>
         <button
           type="button"
-          className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
           onClick={() => openHandler(modalKey, false)}
         >
           {leftButtonConfig.text}
         </button>
       </Link>
     );
+  if (
+    checkboxes &&
+    leftButtonConfig?.onClick?.data?.linkType === "externalAndCreated"
+  ) {
+    let URLEnding = "";
+    checkboxData.map((checkbox) =>
+      checkboxState[checkbox.key] ? (URLEnding += checkbox.URLPiece) : null
+    );
+    leftButton = (
+      <a
+        target={leftButtonConfig.onClick.data.sameTab ? "_self" : "_blank"}
+        rel="noreferrer"
+        href={leftButtonConfig.onClick.data.link + URLEnding}
+      >
+        <button
+          type="button"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => openHandler(modalKey, false)}
+        >
+          {leftButtonConfig.text}
+        </button>
+      </a>
+    );
+  }
 
   let rightButton = <></>;
   if (rightButtonConfig?.onClick?.data?.linkType === "external")
@@ -55,7 +88,7 @@ export default function Modal(props) {
       >
         <button
           type="button"
-          className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
           onClick={() => openHandler(modalKey, false)}
         >
           {rightButtonConfig.text}
@@ -67,13 +100,37 @@ export default function Modal(props) {
       <Link to={rightButtonConfig.onClick.data.link}>
         <button
           type="button"
-          className="w-full inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
           onClick={() => openHandler(modalKey, false)}
         >
           {rightButtonConfig.text}
         </button>
       </Link>
     );
+  if (
+    checkboxes &&
+    rightButtonConfig?.onClick?.data?.linkType === "externalAndCreated"
+  ) {
+    let URLEnding = "";
+    checkboxData.map((checkbox) =>
+      checkboxState[checkbox.key] ? (URLEnding += checkbox.URLPiece) : null
+    );
+    leftButton = (
+      <a
+        target={rightButtonConfig.onClick.data.sameTab ? "_self" : "_blank"}
+        rel="noreferrer"
+        href={rightButtonConfig.onClick.data.link + URLEnding}
+      >
+        <button
+          type="button"
+          className="w-full my-2 sm:my-0 inline-flex justify-center rounded-md border border-blue-600 hover:border-blue-700 shadow-sm px-4 py-2 outline-none bg-blue-700 text-base font-medium text-white hover:bg-blue-800 sm:ml-3 sm:w-auto sm:text-sm"
+          onClick={() => openHandler(modalKey, false)}
+        >
+          {rightButtonConfig.text}
+        </button>
+      </a>
+    );
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -134,6 +191,32 @@ export default function Modal(props) {
                     </div>
                   </div>
                 </div>
+                {checkboxes && (
+                  <div className="flex flex-col items-center w-full my-4">
+                    {checkboxData.map((checkbox) => (
+                      <div
+                        key={checkbox.key}
+                        className="flex justify-between items-center w-1/2 py-1"
+                      >
+                        <p className="text-sm sm:text-base text-white">
+                          {checkbox.text}
+                        </p>
+                        <input
+                          name={checkbox.text}
+                          type="checkbox"
+                          checked={checkboxState[checkbox.key]}
+                          onChange={() => {
+                            const objCopy = checkboxState;
+                            setCheckboxState({
+                              ...objCopy,
+                              [checkbox.key]: !objCopy[checkbox.key],
+                            });
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse sm:justify-between">
                 {leftButtonConfig && leftButton}

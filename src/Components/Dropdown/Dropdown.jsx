@@ -11,7 +11,11 @@ export default function Dropdown(props) {
   const { dropdownData } = props;
   const modalList = {};
   dropdownData.rows
-    .filter((row) => row.displayButton.onClick.action === "Modal")
+    .filter(
+      (row) =>
+        row.displayButton.onClick.action === "Modal" ||
+        row.displayButton.onClick.action === "CheckboxModal"
+    )
     .map((row) => (modalList[row.displayButton.onClick.data.key] = false));
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(modalList);
@@ -99,6 +103,38 @@ export default function Dropdown(props) {
                         text={modalDetails.text}
                         leftButtonConfig={modalDetails.leftButton}
                         rightButtonConfig={modalDetails.rightButton}
+                      />
+                    </div>
+                  );
+                  break;
+                case "CheckboxModal":
+                  const checkboxModalDetails = buttonDetails.onClick.data;
+                  rowButton = (
+                    <div>
+                      <button
+                        onClick={() => {
+                          const objCopy = modalOpen;
+                          setModalOpen({
+                            ...objCopy,
+                            [checkboxModalDetails.key]: true,
+                          });
+                        }}
+                        className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 border-2 border-blue-600 hover:border-blue-700"
+                      >
+                        <p className="text-white hover:text-gray-100">
+                          {checkboxModalDetails.title}
+                        </p>
+                      </button>
+                      <Modal
+                        open={modalOpen[checkboxModalDetails.key]}
+                        openHandler={changeModalState}
+                        modalKey={checkboxModalDetails.key}
+                        checkboxes
+                        checkboxData={checkboxModalDetails.checkboxes}
+                        title={checkboxModalDetails.title}
+                        text={checkboxModalDetails.text}
+                        leftButtonConfig={checkboxModalDetails.leftButton}
+                        rightButtonConfig={checkboxModalDetails.rightButton}
                       />
                     </div>
                   );
