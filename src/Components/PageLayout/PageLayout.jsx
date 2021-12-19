@@ -7,11 +7,18 @@ import Notification from "../../Components/Notification/Notification";
 import Panel from "../../Components/Panel/Panel";
 
 // Package imports
+import { useEffect } from "react";
 import Loader from "react-loader-spinner";
+import { useLocation } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function PageLayout(props) {
   const { layoutData, pageData } = props;
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) window.location.href = location.hash;
+  }, [location.hash]);
 
   return layoutData ? (
     layoutData.hasOwnProperty("header") &&
