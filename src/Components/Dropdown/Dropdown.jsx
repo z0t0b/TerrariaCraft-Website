@@ -92,7 +92,7 @@ export default function Dropdown(props) {
                         className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 border-2 border-blue-600 hover:border-blue-700"
                       >
                         <p className="text-white hover:text-gray-100">
-                          {modalDetails.title}
+                          {buttonDetails.text}
                         </p>
                       </button>
                       <Modal
@@ -122,7 +122,7 @@ export default function Dropdown(props) {
                         className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 border-2 border-blue-600 hover:border-blue-700"
                       >
                         <p className="text-white hover:text-gray-100">
-                          {checkboxModalDetails.title}
+                          {buttonDetails.text}
                         </p>
                       </button>
                       <Modal
