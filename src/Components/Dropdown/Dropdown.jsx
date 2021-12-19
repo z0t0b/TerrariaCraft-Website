@@ -40,6 +40,17 @@ export default function Dropdown(props) {
       </button>
       {open && (
         <div className="w-full flex flex-col justify-center align-middle items-center">
+          {dropdownData.dropdownText &&
+            (dropdownData.dropdownTextType === "plain" ? (
+              <p className="bg-black bg-opacity-60 text-white text-lg lg:text-base w-11/12 lg:w-2/3 px-4 py-2 text-center">
+                {dropdownData.dropdownText}
+              </p>
+            ) : (
+              <p
+                className="bg-black bg-opacity-60 text-white text-lg lg:text-base w-11/12 lg:w-2/3 px-4 py-2 text-center"
+                dangerouslySetInnerHTML={{ __html: dropdownData.dropdownText }}
+              />
+            ))}
           {dropdownData.rows.map((row, i) => {
             try {
               let rowButton = <></>;
