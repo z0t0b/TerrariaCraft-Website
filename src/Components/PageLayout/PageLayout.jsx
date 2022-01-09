@@ -1,8 +1,9 @@
 // Custom page/component imports
+import Dropdown from "../../Components/Dropdown/Dropdown";
 import Error from "../Error/Error";
 import Footer from "../Footer/Footer";
+import Gallery from "../Gallery/Gallery";
 import Header from "../Header/Header";
-import Dropdown from "../../Components/Dropdown/Dropdown";
 import Notification from "../../Components/Notification/Notification";
 import Panel from "../../Components/Panel/Panel";
 
@@ -52,6 +53,10 @@ export default function PageLayout(props) {
                     );
                   case "panel":
                     return <Panel key={"panel_" + i} panelData={component} />;
+                  case "gallery":
+                    return (
+                      <Gallery key={"gallery_" + i} galleryData={component} />
+                    );
                   default:
                     return <></>;
                 }
