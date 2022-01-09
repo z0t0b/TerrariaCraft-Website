@@ -10,7 +10,7 @@ export default function Footer(props) {
         backgroundColor: "#3a3a3ade",
         borderTopColor: "rgba(255,255,255,0.418)",
       }}
-      className="relative z-10 py-4 h-24 w-full border-t-4 border-dotted flex justify-center align-middle"
+      className="relative z-10 py-4 h-24 w-full border-t-4 border-dotted flex justify-center align-middle flex-shrink-0"
     >
       <div
         style={{ fontFamily: "'Roboto Condensed', sans-serif" }}

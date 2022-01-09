@@ -32,26 +32,31 @@ export default function PageLayout(props) {
         />
         <div className="w-full h-full flex flex-col justify-between">
           <Header headerData={layoutData.header} />
-          <div className="relative pt-2 h-full w-full mt-2 overflow-y-auto">
-            {pageData.map((component, i) => {
-              switch (component.component) {
-                case "notification":
-                  return (
-                    <Notification
-                      key={"notification_" + i}
-                      notificationData={component.notification}
-                    />
-                  );
-                case "dropdown":
-                  return (
-                    <Dropdown key={"dropdown_" + i} dropdownData={component} />
-                  );
-                case "panel":
-                  return <Panel key={"panel_" + i} panelData={component} />;
-                default:
-                  return <></>;
-              }
-            })}
+          <div className="relative pt-2 h-full w-full mt-2 overflow-y-auto flex flex-col justify-between items-stretch justify-items-stretch">
+            <div className="w-full">
+              {pageData.map((component, i) => {
+                switch (component.component) {
+                  case "notification":
+                    return (
+                      <Notification
+                        key={"notification_" + i}
+                        notificationData={component.notification}
+                      />
+                    );
+                  case "dropdown":
+                    return (
+                      <Dropdown
+                        key={"dropdown_" + i}
+                        dropdownData={component}
+                      />
+                    );
+                  case "panel":
+                    return <Panel key={"panel_" + i} panelData={component} />;
+                  default:
+                    return <></>;
+                }
+              })}
+            </div>
             <Footer footerData={layoutData.footer} />
           </div>
         </div>
